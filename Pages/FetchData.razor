@@ -1,0 +1,47 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Weather forecast</PageTitle>
+
+@using tarea1.Data
+@inject WeatherForecastService ForecastService
+
+<h1 style="text-align: center;">Consulta de Ocupaciones</h1> <br>
+
+@if (ocupaciones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>OcupacionID</th>
+                <th>Descripcion</th>
+                <th>Salario</th>
+            </tr>
+        </thead>
+        <tbody>
+          --  @foreach (var ocupacion in ocupaciones)
+            {
+                <tr>
+                    <td>@ocupacion.OcupacionID</td>
+                    <td>@ocupacion.Descripcion</td>
+                    <td>@ocupacion.Salario</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private WeatherForecast[]? forecasts;
+    private List<Ocupacion>? ocupaciones;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Contexto contexto = new Contexto();
+        ocupaciones = contexto.Ocupaciones.ToList();
+    }
+}

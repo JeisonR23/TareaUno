@@ -1,0 +1,41 @@
+﻿@page "/counter"
+@using tarea1.Data
+
+<PageTitle>Registro de Ocupaciones</PageTitle>
+
+<h1 style="text-align: center;">Registro de Ocupaciones</h1>
+ 
+<EditForm Model ="@ocupacion">
+
+ <div class="form-group col-md-4">
+<label for="Ocupacion">Ocupacion</label>
+<input class="form-control" id="Ocupacion"  type="text" @bind-value="@ocupacion.Descripcion" placeholder="Ocupacion" required ><br>
+</div> 
+ <div class="form-group col-md-4">
+
+<label for="Salario">Salario</label> 
+<input class="form-control" type="text" id="Salario" @bind-value="@ocupacion.Salario" placeholder="Salario" style="text-decoration: none;" required> <br>
+</div>
+
+<button type="submit" class="btn btn-primary"  @onclick="GuardarCambios">Registrar</button>
+
+<button class="btn btn-danger" @onclick="LimpiarDatos">Limpiar Datos</button>
+
+</EditForm>
+
+
+
+@code {
+     Ocupacion ocupacion = new Ocupacion();
+     Contexto contexto = new Contexto();
+    void GuardarCambios(){
+         contexto.Add(ocupacion);
+         contexto.SaveChanges();
+    }
+       void LimpiarDatos(){
+         
+         ocupacion.Descripcion="";
+         ocupacion.Salario = 0;
+         
+    }
+}
